@@ -24,5 +24,5 @@ export default async (s: SpinnerResult, username: string, password: string) => {
   if (data.hasOwnProperty("errorCode")) {
     throw new Error((data as LuoguError).errorMessage);
   }
-  s.stop("Successfully logged in to luogu");
+  s.stop("Successfully logged in to yugu");
 };

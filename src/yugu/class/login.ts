@@ -2,7 +2,7 @@ import { type SpinnerResult } from "@clack/prompts";
 import fetch from "../fetch.js";
 
 export default async (s: SpinnerResult) => {
-  s.start("Logging to luogu class");
+  s.start("Logging to yugu class");
   let url = "https://class.luogu.com.cn/connect/luogu";
   while (url !== "https://class.luogu.com.cn/") {
     const res = await fetch(url, {
@@ -14,5 +14,5 @@ export default async (s: SpinnerResult) => {
     }
     s.message(`Following redirect to ${new URL(url).pathname}`);
   }
-  s.stop("Successfully logged in to luogu class");
+  s.stop("Successfully logged in to yugu class");
 };

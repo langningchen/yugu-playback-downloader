@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import {
   isCancel,
   multiselect,
@@ -9,14 +10,14 @@ import {
   password,
   spinner,
 } from "@clack/prompts";
-import courseList from "./luogu/class/courseList.js";
-import course from "./luogu/class/course.js";
-import classroom from "./luogu/class/live.js";
-import decode from "./luogu/class/decode.js";
-import loginLuogu from "./luogu/auth/login.js";
-import loginClass from "./luogu/class/login.js";
-import download from "./luogu/class/download.js";
-import check from "./luogu/auth/check.js";
+import courseList from "./yugu/class/courseList.js";
+import course from "./yugu/class/course.js";
+import classroom from "./yugu/class/live.js";
+import decode from "./yugu/class/decode.js";
+import loginLuogu from "./yugu/auth/login.js";
+import loginClass from "./yugu/class/login.js";
+import download from "./yugu/class/download.js";
+import check from "./yugu/auth/check.js";
 
 intro("Luogu Class Downloader");
 const s = spinner();

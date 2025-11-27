@@ -1,8 +1,14 @@
 {
-  "name": "luogu-playback-downloader",
+  "name": "yugu-playback-downloader",
   "version": "1.0.0",
   "description": "A tool to download playback videos from Luogu",
-  "main": "src/index.ts",
+  "main": "./dist/index.js",
+  "bin": {
+    "yugu-playback-downloader": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
