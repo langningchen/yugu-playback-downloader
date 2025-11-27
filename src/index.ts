@@ -19,6 +19,7 @@ import download from "./luogu/class/download.js";
 import check from "./luogu/auth/check.js";
 
 intro("Luogu Class Downloader");
+const s = spinner();
 try {
   if (!(await check())) {
     const luoguUsername = await text({
@@ -33,10 +34,9 @@ try {
     if (isCancel(luoguPassword)) {
       throw new Error("Login cancelled by user");
     }
-    await loginLuogu(luoguUsername, luoguPassword);
+    await loginLuogu(s, luoguUsername, luoguPassword);
   }
-  await loginClass();
-  const s = spinner();
+  await loginClass(s);
   s.start("Fetching course list");
   const courses = await courseList();
   s.stop("Got course list");
@@ -77,5 +77,7 @@ try {
   log.success("All downloads completed successfully");
 } catch (error) {
   log.error(error instanceof Error ? error.message : String(error));
+} finally {
+  s.stop("Done");
 }
-outro("Goodbye");
+outro("Program exited");

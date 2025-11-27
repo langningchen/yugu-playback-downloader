@@ -1,8 +1,7 @@
-import { spinner } from "@clack/prompts";
+import { type SpinnerResult } from "@clack/prompts";
 import fetch from "../fetch.js";
 
-export default async () => {
-  const s = spinner();
+export default async (s: SpinnerResult) => {
   s.start("Logging to luogu class");
   let url = "https://class.luogu.com.cn/connect/luogu";
   while (url !== "https://class.luogu.com.cn/") {

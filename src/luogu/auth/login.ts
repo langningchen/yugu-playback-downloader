@@ -1,7 +1,7 @@
 import getCaptcha from "./captcha.js";
 import fetch from "../fetch.js";
 import type { LuoguError } from "../type.js";
-import { spinner } from "@clack/prompts";
+import { type SpinnerResult } from "@clack/prompts";
 
 export type LoginResponse = {
   username: string;
@@ -10,8 +10,7 @@ export type LoginResponse = {
   redirectTo: string;
 };
 
-export default async (username: string, password: string) => {
-  const s = spinner();
+export default async (s: SpinnerResult, username: string, password: string) => {
   const captcha = await getCaptcha(s);
   s.message("Logging in");
   const res = await fetch("https://www.luogu.com.cn/do-auth/password", {

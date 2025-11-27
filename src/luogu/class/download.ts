@@ -60,6 +60,7 @@ export default async (m3u8Uri: string, filePath: string): Promise<void> => {
   const ws = createWriteStream(filePath);
 
   let nextWrite = 0;
+  let downloadedCount = 0;
   const pendingBuffers = new Map<number, Uint8Array>();
   const queue = segments.map((segment, index) => ({ segment, index }));
 
@@ -77,12 +78,16 @@ export default async (m3u8Uri: string, filePath: string): Promise<void> => {
         iv.writeUInt32BE(index, 12);
         const data = await downloadSegment(realUri, key, iv);
         pendingBuffers.set(index, data);
+        downloadedCount++;
+        p.advance(
+          1,
+          `Downloaded segment ${downloadedCount}/${segments.length}`
+        );
         while (pendingBuffers.has(nextWrite)) {
           const bufferToWrite = pendingBuffers.get(nextWrite)!;
           ws.write(bufferToWrite);
           pendingBuffers.delete(nextWrite);
           nextWrite++;
-          p.advance(1, `Saved segment ${nextWrite}/${segments.length}`);
         }
       } catch (err) {
         throw err;
