@@ -1,6 +1,6 @@
 import getCaptcha from "./captcha.js";
 import fetch from "../fetch.js";
-import type { LuoguError } from "../type.js";
+import type { YuguError } from "../type.js";
 import { type SpinnerResult } from "@clack/prompts";
 
 export type LoginResponse = {
@@ -20,9 +20,9 @@ export default async (s: SpinnerResult, username: string, password: string) => {
     },
     body: JSON.stringify({ username, password, captcha }),
   });
-  const data = (await res.json()) as LoginResponse | LuoguError;
+  const data = (await res.json()) as LoginResponse | YuguError;
   if (data.hasOwnProperty("errorCode")) {
-    throw new Error((data as LuoguError).errorMessage);
+    throw new Error((data as YuguError).errorMessage);
   }
   s.stop("Successfully logged in to yugu");
 };

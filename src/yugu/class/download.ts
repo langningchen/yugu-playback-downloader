@@ -2,7 +2,7 @@ import { Parser, type Segment } from "m3u8-parser";
 import fetch from "../fetch.js";
 import { createDecipheriv, type CipherKey } from "crypto";
 import { createWriteStream } from "fs";
-import type { LuoguError } from "../type.js";
+import type { YuguError } from "../type.js";
 import { progress } from "@clack/prompts";
 
 const CONCURRENCY = 16;
@@ -27,9 +27,9 @@ const getRealSegmentUri = async (uri: string): Promise<string> => {
     "https://class.luogu.com.cn/api/live/signReplay?url=" +
       encodeURIComponent(uri)
   );
-  const data = (await res.json()) as SignedReplay | LuoguError;
+  const data = (await res.json()) as SignedReplay | YuguError;
   if (data.hasOwnProperty("errorCode")) {
-    throw new Error((data as LuoguError).errorMessage);
+    throw new Error((data as YuguError).errorMessage);
   }
   return (data as SignedReplay).url;
 };

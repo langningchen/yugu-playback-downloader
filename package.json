@@ -1,7 +1,7 @@
 {
   "name": "yugu-playback-downloader",
   "version": "1.0.0",
-  "description": "A tool to download playback videos from Luogu",
+  "description": "A tool to download playback videos from yugu",
   "main": "./dist/index.js",
   "bin": {
     "yugu-playback-downloader": "./dist/index.js"

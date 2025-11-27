@@ -4,7 +4,7 @@ import fetch from "../fetch.js";
 export default async () => {
   const s = spinner();
   s.start("Checking yugu login");
-  const res = await fetch("https://www.yugu.com.cn/chat?_contentOnly=1", {
+  const res = await fetch("https://www.luogu.com.cn/chat?_contentOnly=1", {
     redirect: "manual",
   });
   if (res.status === 200) {

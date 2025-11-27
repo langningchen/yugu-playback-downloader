@@ -17,7 +17,7 @@
 - [Node.js](https://nodejs.org/) (建议使用最新 LTS 版本)
 - [pnpm](https://pnpm.io/) (本项目使用 pnpm 作为包管理器)
 
-## 安装
+## 快速开始
 
 无需安装，直接使用 `npx` 运行：
 
@@ -25,7 +25,7 @@
 npx yugu-playback-downloader
 ```
 
-### 本地运行
+## 本地运行
 
 1. 克隆仓库到本地：
 
@@ -35,25 +35,24 @@ npx yugu-playback-downloader
    ```
 
 2. 安装依赖：
+
    ```bash
    pnpm install
    ```
 
-## 使用方法
-
-1. 编译 TypeScript 代码：
+3. 编译 TypeScript 代码：
 
    ```bash
    pnpm build
    ```
 
-2. 运行程序：
+4. 运行程序：
 
    ```bash
    pnpm start
    ```
 
-3. 按照终端提示操作，输入浴谷账号信息，选择课程和章节，即可开始下载。
+5. 按照终端提示操作，输入浴谷账号信息，选择课程和章节，即可开始下载。
 
 ## 注意事项
 

@@ -1,4 +1,4 @@
-export type LuoguError = {
+export type YuguError = {
   errorCode: number;
   errorType: string;
   errorMessage: string;

@@ -14,28 +14,28 @@ import courseList from "./yugu/class/courseList.js";
 import course from "./yugu/class/course.js";
 import classroom from "./yugu/class/live.js";
 import decode from "./yugu/class/decode.js";
-import loginLuogu from "./yugu/auth/login.js";
+import loginYugu from "./yugu/auth/login.js";
 import loginClass from "./yugu/class/login.js";
 import download from "./yugu/class/download.js";
 import check from "./yugu/auth/check.js";
 
-intro("Luogu Class Downloader");
+intro("Yugu Class Downloader");
 const s = spinner();
 try {
   if (!(await check())) {
-    const luoguUsername = await text({
-      message: "Enter your Luogu username",
+    const yuguUsername = await text({
+      message: "Enter your Yugu username",
     });
-    if (isCancel(luoguUsername)) {
+    if (isCancel(yuguUsername)) {
       throw new Error("Login cancelled by user");
     }
-    const luoguPassword = await password({
-      message: "Enter your Luogu password",
+    const yuguPassword = await password({
+      message: "Enter your Yugu password",
     });
-    if (isCancel(luoguPassword)) {
+    if (isCancel(yuguPassword)) {
       throw new Error("Login cancelled by user");
     }
-    await loginLuogu(s, luoguUsername, luoguPassword);
+    await loginYugu(s, yuguUsername, yuguPassword);
   }
   await loginClass(s);
   s.start("Fetching course list");
