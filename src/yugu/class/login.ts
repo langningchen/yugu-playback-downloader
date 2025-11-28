@@ -8,10 +8,11 @@ export default async (s: SpinnerResult) => {
     const res = await fetch(url, {
       redirect: "manual",
     });
-    url = res.headers.get("location") || "";
+    const location = res.headers.get("location") || "";
     if (!url) {
-      throw new Error("Failed to follow redirects");
+      throw new Error("Failed to follow redirects from url: " + url);
     }
+    url = location;
     s.message(`Following redirect to ${new URL(url).pathname}`);
   }
   s.stop("Successfully logged in to yugu class");

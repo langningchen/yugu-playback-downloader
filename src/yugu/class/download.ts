@@ -69,28 +69,38 @@ export default async (m3u8Uri: string, filePath: string): Promise<void> => {
       const job = queue.shift();
       if (!job) break;
       const { segment, index } = job;
-      try {
-        const realUri = await getRealSegmentUri(
-          [...m3u8Uri.split("/").slice(0, -1), segment!.uri].join("/")
-        );
 
-        const iv = Buffer.alloc(16);
-        iv.writeUInt32BE(index, 12);
-        const data = await downloadSegment(realUri, key, iv);
-        pendingBuffers.set(index, data);
-        downloadedCount++;
-        p.advance(
-          1,
-          `Downloaded segment ${downloadedCount}/${segments.length}`
-        );
-        while (pendingBuffers.has(nextWrite)) {
-          const bufferToWrite = pendingBuffers.get(nextWrite)!;
-          ws.write(bufferToWrite);
-          pendingBuffers.delete(nextWrite);
-          nextWrite++;
+      let retries = 0;
+      const MAX_RETRIES = 5;
+      while (true) {
+        try {
+          const realUri = await getRealSegmentUri(
+            [...m3u8Uri.split("/").slice(0, -1), segment!.uri].join("/")
+          );
+
+          const iv = Buffer.alloc(16);
+          iv.writeUInt32BE(index, 12);
+          const data = await downloadSegment(realUri, key, iv);
+          pendingBuffers.set(index, data);
+          downloadedCount++;
+          p.advance(
+            1,
+            `Downloaded segment ${downloadedCount}/${segments.length}`
+          );
+          while (pendingBuffers.has(nextWrite)) {
+            const bufferToWrite = pendingBuffers.get(nextWrite)!;
+            ws.write(bufferToWrite);
+            pendingBuffers.delete(nextWrite);
+            nextWrite++;
+          }
+          break;
+        } catch (e) {
+          retries++;
+          if (retries > MAX_RETRIES) {
+            throw e;
+          }
+          await new Promise((resolve) => setTimeout(resolve, 1000));
         }
-      } catch (err) {
-        throw err;
       }
     }
   };
